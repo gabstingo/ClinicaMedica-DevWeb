@@ -1,0 +1,68 @@
+﻿@model ClinicaMedica.Models.Consulta;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Historico</h1>
+        <form method="post" asp-action="">
+            <div class="form-group mp-6">
+                <label asp-for="NomePaciente"></label>
+                <input asp-for="NomePaciente" class="form-control" readonly/>
+                <span asp-validation-for="NomePaciente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dataConsulta"></label>
+                <input asp-for="dataConsulta" class="form-control" readonly />
+                <span asp-validation-for="dataConsulta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anotacoes">Anotações Referente a Consulta</label>
+                <textarea asp-for="Anotacoes" rows="4" cols="50" class="form-control" readonly></textarea>
+                <span asp-validation-for="Anotacoes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InicioConsulta">Inicio da Consulta</label>
+                <input asp-for="InicioConsulta" class="form-control" readonly/>
+                <span asp-validation-for="InicioConsulta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FimConsulta">Fim da Consulta</label>
+                <input asp-for="FimConsulta" class="form-control" readonly/>
+                <span asp-validation-for="FimConsulta" class="text-danger"></span>
+            </div>
+            <div>
+                @if (ViewBag.TipoMensagem != null)
+                {
+                    if (ViewBag.TipoMensagem == "ERRO")
+                    {
+    <div class="alert alert-danger">@ViewBag.Mensagem</div> }
+else if (ViewBag.TipoMensagem == "SUCESSO")
+{
+<div class="alert alert-success">@ViewBag.Mensagem</div>}
+}
+            </div>
+        </form>
+
+        @if (ViewBag.Erro != null)
+        {
+<div class="alert alert-danger">@ViewBag.Erro</div>}
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

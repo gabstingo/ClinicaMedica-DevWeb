@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Consulta>;
+
+<h1>Historico Medico</h1>
+
+@if (TempData["TipoMensagem"] != null)
+{
+    if (TempData["TipoMensagem"].ToString() == "SUCESSO")
+    {
+        <div class="alert alert-success">@TempData["Mensagem"].ToString()</div> }
+    else if (TempData["TipoMensagem"].ToString() == "ERRO")
+    {
+        <div class="alert alert-danger">@TempData["Mensagem"].ToString()</div>}
+}
+
+<form method="post">
+    <div class="form-group">
+            <label for="txtCpf">CPF Paciente</label>
+            <input id="txtCpf" name="Cpf" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>
+</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            @Html.DisplayNameFor(model => model.NomePaciente)
+        </div>
+        <div class="col-sm">
+            @Html.DisplayNameFor(model => model.Cpf)
+        </div>
+        <div class="col-sm">
+            @Html.DisplayNameFor(model => model.Crm)
+        </div>
+        <div class="col-sm">
+            @Html.DisplayNameFor(model => model.dataConsulta)
+        </div>
+        <div class="col-sm text-center">
+            @Html.DisplayNameFor(model => model.Situacao)
+        </div>
+        <div class="col-sm-1">
+            Acessar
+        </div>
+    </div>
+
+
+    @if (Model != null)
+    {
+        @foreach (Consulta usuario in Model)
+        {
+
+<div class="row">
+    <div class="col-sm">
+        @usuario.NomePaciente
+    </div>
+    <div class="col-sm">
+        @usuario.Cpf
+    </div>
+    <div class="col-sm">
+        @usuario.Crm
+    </div>
+    <div class="col-sm">
+        @usuario.dataConsulta
+    </div>
+    <div class="col-sm text-center">
+        @usuario.Situacao
+    </div>
+    <div class="col-sm-1 ">
+        <a class="btn btn-sm btn-secondary" asp-action="Historico" asp-route-id="@usuario.ID">Visualizar</a>
+    </div>
+</div>
+
+        }
+    }
+</div>

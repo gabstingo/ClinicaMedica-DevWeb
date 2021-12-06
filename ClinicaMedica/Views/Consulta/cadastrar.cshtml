@@ -1,0 +1,116 @@
+﻿@model ClinicaMedica.Models.Consulta;
+@using System;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Cadastrar Consulta</h1>
+        <form method="post" asp-action="cadastrar">
+            <div class="form-group mp-6">
+                <label asp-for="NomePaciente"></label>
+                <input asp-for="NomePaciente" class="form-control" />
+                <span asp-validation-for="NomePaciente" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mp-6">
+                <label asp-for="Cpf"></label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group mp-6">
+                <label asp-for="Crm"></label>
+                <input asp-for="Crm" class="form-control" />
+                <span asp-validation-for="Crm" class="text-danger"></span>
+            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="form-group">
+                    <label asp-for="Secretario">Secretario(a)</label>
+                    <input asp-for="Secretario" class="form-control" disabled="" value="@User.Identity.Name" />
+                    <span asp-validation-for="Secretario" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="dataCadastro"></label>
+                <input asp-for="dataCadastro" class="form-control" disabled="" value="@DateTime.Now.Date.ToString("yyyy'-'MM'-'dd")" />
+                <span asp-validation-for="dataCadastro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacao"></label>
+                <input asp-for="Observacao" class="form-control" />
+                <span asp-validation-for="Observacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dataConsulta"></label>
+                <input asp-for="dataConsulta" class="form-control" />
+                <span asp-validation-for="dataConsulta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Situacao"></label>
+                <select asp-for="Situacao" class="form-control" disabled="">
+                    <option selected value="Pendente">Pendente</option>
+                    <option value="Confirmada">Confirmada</option>
+                    <option value="Concluida">Concluida</option>
+                    <option value="Cancelada">Cancelada</option>
+                </select>
+                <span asp-validation-for="Situacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pagamento"></label>
+                <select asp-for="Pagamento" class="form-control" >
+                    <option selected value="SUS">SUS</option>
+                    <option value="Particular">Particular</option>
+                    <option value="Convenio">Convenio</option>
+                </select>
+                <span asp-validation-for="Pagamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comprovante"></label>
+                <input asp-for="Comprovante" class="form-control" />
+                <span asp-validation-for="Comprovante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Agendar</button>
+            </div>
+            <div>
+                @if (ViewBag.TipoMensagem != null)
+                {
+                    if (ViewBag.TipoMensagem == "ERRO")
+                    {
+                        <div class="alert alert-danger">@ViewBag.Mensagem</div>
+                    }
+                    else if (ViewBag.TipoMensagem == "SUCESSO")
+                    {
+                        <div class="alert alert-success">@ViewBag.Mensagem</div>
+                    }
+                }
+            </div>
+        </form>
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

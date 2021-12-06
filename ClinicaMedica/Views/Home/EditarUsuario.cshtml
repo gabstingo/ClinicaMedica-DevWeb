@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Atualização de usuário";
+}
+
+@*Serve para definir a model que sera passada, que vai utilizar, linha abaixo*@
+@model ClinicaMedica.Models.Usuario;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Editar usuário</h1>
+        <form method="post" asp-action="EditarUsuario">
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="TipoUsuario">Tipo de usuário: </label>
+                <span asp-validation-for="TipoUsuario" class="text-danger small"></span>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="TipoUsuario" id="inlineRadio1" value="Medico">
+                    <label class="form-check-label" for="inlineRadio1">Médico</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="TipoUsuario" id="inlineRadio2" value="Secretaria">
+                    <label class="form-check-label" for="inlineRadio2">Secretaria</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ativo">Ativo/Inativo: </label>
+                <span asp-validation-for="Ativo" class="text-danger small"></span>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Ativo" id="inlineRadio1b" value="@true">
+                    <label class="form-check-label" for="inlineRadio1b">Ativo</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Ativo" id="inlineRadio2b" value="@false">
+                    <label class="form-check-label" for="inlineRadio2b">Inativo</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Crm"></label>
+                <input asp-for="Crm" class="form-control" />
+                <span asp-validation-for="Crm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataNasc"></label>
+                <input asp-for="DataNasc" class="form-control" />
+                <span asp-validation-for="DataNasc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cpf"></label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="Senha"></label>
+                    <input asp-for="Senha" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+            <div>
+                @if (ViewBag.TipoMensagem != null)
+                {
+                    if (ViewBag.TipoMensagem == "ERRO")
+                    {
+                        <div class="alert alert-danger">@ViewBag.Mensagem</div>
+                    }
+                    else if (ViewBag.TipoMensagem == "SUCESSO")
+                    {
+                        <div class="alert alert-success">@ViewBag.Mensagem</div>
+                    }
+                }
+            </div>
+        </form>
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

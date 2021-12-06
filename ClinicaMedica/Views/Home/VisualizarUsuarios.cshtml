@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Usuario>;
+
+<h1>Usuários do sistema</h1>
+
+@if (TempData["TipoMensagem"] != null)
+{
+    if (TempData["TipoMensagem"].ToString() == "SUCESSO")
+    {
+        <div class="alert alert-success">@TempData["Mensagem"].ToString()</div>
+    }
+    else if (TempData["TipoMensagem"].ToString() == "ERRO")
+    {
+        <div class="alert alert-danger">@TempData["Mensagem"].ToString()</div>
+    }
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="txtNome">Nome</label>
+        <input id="txtNome" name="Nome" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="txtAtivo">Ativo/Inativo: </label>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="Ativo" id="inlineRadio1b" value="true">
+            <label class="form-check-label" for="inlineRadio1b">Ativo</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="Ativo" id="inlineRadio2b" value="false">
+            <label class="form-check-label" for="inlineRadio2b">Inativo</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="Ativo" id="inlineRadio3b" value="">
+            <label class="form-check-label" for="inlineRadio3b">Todos</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>
+</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Nome)
+        </div>
+        <div class="col-sm-1">
+            Editar
+        </div>
+    </div>
+    @if (Model != null)
+    {
+        @foreach (Usuario usuario in Model)
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    @usuario.Nome
+                </div>
+                <div class="col-sm-1 mt-1">
+                    <a class="btn btn-sm btn-primary" asp-action="EditarUsuario" asp-route-id="@usuario.ID">Editar</a>
+                </div>
+            </div>
+        }
+    }
+</div>

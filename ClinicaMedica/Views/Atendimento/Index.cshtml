@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Consulta>;
+
+<h1>Atendimentos do dia</h1>
+
+ @if (Model != null)
+    {
+        @foreach (Consulta usuario in Model)
+        {
+<div class="row">
+    <div class="col-sm">
+        @usuario.Cpf
+    </div>
+    <div class="col-sm">
+        @usuario.Crm
+    </div>
+    <div class="col-sm">
+        @usuario.dataConsulta
+    </div>
+    <div class="col-sm text-center">
+        @usuario.Situacao
+    </div>
+    <div class="col-sm-2 text-center">
+        <a class="btn btn-sm btn-success" asp-action="ConfirmarConsulta" asp-route-id="@usuario.ID">Confirmação</a>
+    </div>
+    <div class="col-sm-1 ">
+        <a class="btn btn-sm btn-secondary" asp-action="EditarConsulta" asp-route-id="@usuario.ID">Editar</a>
+    </div>
+</div>
+        }
+    }
